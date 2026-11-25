@@ -1,0 +1,6 @@
+_raw/
+.omc/
+.scratch/
+node_modules/
+*.log
+BRIEF.md
