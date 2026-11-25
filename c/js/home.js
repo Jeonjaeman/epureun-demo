@@ -114,7 +114,7 @@
         m.position.set((rnd() - 0.5) * 1.6, -2.35, z);
         m.rotation.x = -(Math.PI / 2 - 0.58);
       }
-      m.userData.src = P + d[0] + '.webp';
+      m.userData.src = P + d[0] + '.webp?v=2';
       scene.add(m);
       planes.push(m);
     });
@@ -224,7 +224,7 @@
       img.alt = '';
       img.decoding = 'async';
       if (i > 5) img.loading = 'lazy';
-      img.src = P + d[0] + '.webp';
+      img.src = P + d[0] + '.webp?v=2';
       el.appendChild(img);
       var x = side * (half + (i % 3) * 14);
       var y = ((i * 37) % 60 - 30) * (isMobile ? 0.8 : 1.2);

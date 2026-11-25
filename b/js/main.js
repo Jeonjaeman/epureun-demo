@@ -128,7 +128,7 @@
           nx.classList.remove('next', 'in');
         }, 1800);
       };
-      nx.src = base + name + '.webp';
+      nx.src = base + name + '.webp?v=2';
     };
     var timer = setInterval(swap, 2600);
 
