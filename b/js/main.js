@@ -299,7 +299,7 @@
 
   /* ---------- sub tabs scrollspy ---------- */
   var subLinks = $$('.subtabs a[href^="#"]');
-  if (subLinks.length && 'IntersectionObserver' in window) {
+  if (subLinks.length) {
     var secs = subLinks.map(function (a) { return doc.getElementById(a.getAttribute('href').slice(1)); }).filter(Boolean);
     var setOn = function (id) {
       subLinks.forEach(function (a) {
@@ -312,11 +312,17 @@
         } else a.removeAttribute('aria-current');
       });
     };
-    var spy = new IntersectionObserver(function (ens) {
-      ens.forEach(function (en) { if (en.isIntersecting) setOn(en.target.id); });
-    }, { rootMargin: '-35% 0px -60% 0px' });
-    secs.forEach(function (s) { spy.observe(s); });
-    setOn(secs[0] && secs[0].id);
+    var curId = null, ticking = false;
+    var spy = function () {
+      ticking = false;
+      var line = window.innerHeight * 0.35, id = secs[0] && secs[0].id;
+      secs.forEach(function (s) { if (s.getBoundingClientRect().top <= line) id = s.id; });
+      if (id !== curId) { curId = id; setOn(id); }
+    };
+    var queue = function () { if (!ticking) { ticking = true; requestAnimationFrame(spy); } };
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    spy();
   }
 
   /* ---------- video: keep poster if file missing ---------- */
